@@ -97,6 +97,8 @@ local function install_plugins_with_packer(just_installed_packer)
             }
           end
         }       
+
+        use 'vim-autoformat/vim-autoformat'
     end)
 
   -- Automatically install plugins if there are any missing, and if packer was just installed

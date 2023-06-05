@@ -20,8 +20,7 @@ require('keys') -- Keymaps
 require('plug') -- Plugins
 
 -- Colorscheme
-vim.cmd('colorscheme everforest')
-vim.cmd('hi Normal guibg=NONE') -- Have to do this manually for some reason
+vim.cmd('colorscheme gruvbox')
 
 -- PLUGINS
 require('nvim-tree').setup{
@@ -180,3 +179,4 @@ require('telescope').setup {
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
+

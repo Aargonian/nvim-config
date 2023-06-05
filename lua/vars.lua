@@ -19,3 +19,6 @@ g.nvim_tree_show_icons = {
     files = 1,
     folder_arrows = 1
 }
+
+-- Rustfmt on save
+vim.cmd('au BufWrite * :Autoformat')
