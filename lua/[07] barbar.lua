@@ -1,3 +1,10 @@
+vim.g.barbar_auto_setup = false
+require('barbar').setup({
+    sidebar_filetypes = {
+        NvimTree = true
+    }
+})
+
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
@@ -20,8 +27,6 @@ map('n', '<C-9>', '<Cmd>BufferGoto 9<CR>', opts)
 map('n', '<C-0>', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
 -- map('n', '<C-p>', '<Cmd>BufferPin<CR>', opts)
--- Close buffer
-map('n', '<C-S-c>', '<Cmd>BufferClose<CR>', opts)
 -- Wipeout buffer
 --                 :BufferWipeout
 -- Close commands
@@ -31,7 +36,10 @@ map('n', '<C-S-c>', '<Cmd>BufferClose<CR>', opts)
 --                 :BufferCloseBuffersLeft
 --                 :BufferCloseBuffersRight
 -- Magic buffer-picking mode
-map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+map('n', '<C-b>', '<Cmd>BufferPick<CR>', opts)
+
+-- Close windows
+map('n', '<C-c>', ':confirm BufferClose<CR>', {silent = true})
 -- Sort automatically by...
 -- map('n', '<C-Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
 -- map('n', '<C-Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)

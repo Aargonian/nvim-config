@@ -2,17 +2,17 @@
 
 -- Function to check if Packer is installed and install it if not found
 local function ensure_packer_installed()
-  local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-    return true
-  end
-  return false
+    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+        vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
+        return true
+    end
+    return false
 end
 
 -- Function to install the plugins with Packer
 local function install_plugins_with_packer(just_installed_packer)
-  require('packer').startup(function(use)
+    require('packer').startup(function(use)
         -- Your existing plugin configurations
         -- Replace the 'use' statements in your 'plug.lua' file with the ones here
         -- For example:
@@ -71,40 +71,41 @@ local function install_plugins_with_packer(just_installed_packer)
 
         -- [[ Theme ]]
         use 'mhinz/vim-startify'
-        use 'DanilaMihailov/beacon.nvim' 
+        use 'DanilaMihailov/beacon.nvim'
         use 'nvim-lualine/lualine.nvim'
         use 'Mofiqul/dracula.nvim'
         use 'ellisonleao/gruvbox.nvim'
+        use 'sainnhe/gruvbox-material'
         use 'sainnhe/everforest'
         use {
-            'nvim-telescope/telescope-fzf-native.nvim', 
+            'nvim-telescope/telescope-fzf-native.nvim',
             run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && \
-                   cmake --build build --config Release && \
-                   cmake --install build --prefix build'
+            cmake --build build --config Release && \
+            cmake --install build --prefix build'
         }
         use {
             'nvim-telescope/telescope.nvim',
-            tag = '0.1.1', 
-            requires = { 
-                {'nvim-lua/plenary.nvim'} 
+            tag = '0.1.1',
+            requires = {
+                {'nvim-lua/plenary.nvim'}
             }
         }
         use 'preservim/tagbar'
-        use { 
-            "folke/trouble.nvim", 
-            requires = "nvim-tree/nvim-web-devicons", 
+        use {
+            "folke/trouble.nvim",
+            requires = "nvim-tree/nvim-web-devicons",
             config = function() require("trouble").setup {
             }
-          end
-        }       
+        end
+    }
 
-        use 'vim-autoformat/vim-autoformat'
-    end)
+    use 'vim-autoformat/vim-autoformat'
+end)
 
-  -- Automatically install plugins if there are any missing, and if packer was just installed
-  if just_installed_packer then
-      require('packer').sync()
-  end
+-- Automatically install plugins if there are any missing, and if packer was just installed
+if just_installed_packer then
+    require('packer').sync()
+end
 end
 
 -- Ensure Packer is installed and install plugins
