@@ -34,6 +34,8 @@ require('[10] completion')
 require('[11] vimspector')
 require('[12] tagbar')
 require('[13] trouble')
+require('[14] alpha')
+require('[15] session-manager')
 
 -- Diagnostic stuff?
 local sign = function(opts)

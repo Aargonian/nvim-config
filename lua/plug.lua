@@ -90,7 +90,14 @@ require('packer').startup(function(use)
     use 'voldikss/vim-floaterm'             -- Awesome Floating Terminal
 
     -- [[ Theme ]]
-    use 'mhinz/vim-startify'                -- Session Manager
+    use 'Shatur/neovim-session-manager'     -- Base Session Manager
+    use {
+        'goolord/alpha-nvim',               -- Session Manager
+        config = function ()
+            require'alpha'.setup(require'alpha.themes.dashboard'.config)
+        end
+    }
+    -- use 'mhinz/vim-startify'                -- Session Manager
     use 'DanilaMihailov/beacon.nvim'        -- Show me where my cursor is when switching panes
     use 'nvim-lualine/lualine.nvim'         -- Status Line
     use 'Mofiqul/dracula.nvim'              -- Dracula Colorscheme
