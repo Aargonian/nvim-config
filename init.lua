@@ -19,6 +19,8 @@ require('plug') -- Plugins
 vim.cmd('colorscheme gruvbox-material')
 
 -- Plugin configs, keymappings, etc.
+require('[00] completion')
+require('[01] format')
 require('[01] hop')
 require('[02] telescope')
 require('[03] floatterm')
@@ -32,9 +34,6 @@ require('[10] completion')
 require('[11] vimspector')
 require('[12] tagbar')
 require('[13] trouble')
-
--- Language Specific Configs/Settings
-require('lang-rust')
 
 -- Diagnostic stuff?
 local sign = function(opts)

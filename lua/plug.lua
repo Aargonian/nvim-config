@@ -1,114 +1,109 @@
 -- [[ plug.lua ]]
-
--- Function to check if Packer is installed and install it if not found
-local function ensure_packer_installed()
-    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-        vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-        return true
-    end
-    return false
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
 end
 
--- Function to install the plugins with Packer
-local function install_plugins_with_packer(just_installed_packer)
-    require('packer').startup(function(use)
-        -- Your existing plugin configurations
-        -- Replace the 'use' statements in your 'plug.lua' file with the ones here
-        -- For example:
-        -- use 'kyazdani42/nvim-tree.lua'
-        -- use 'hoob3rt/lualine.nvim'
-        use 'wbthomason/packer.nvim'
+local packer_bootstrap = ensure_packer()
 
-        -- [[ Navigation and UI ]]
-        use 'nvim-tree/nvim-web-devicons'
-        use 'nvim-tree/nvim-tree.lua'
-        use 'romgrk/barbar.nvim'                -- For the love of good I need good tabpage headers
+require('packer').startup(function(use)
+    -- [[ REQUIRED: Packer ]]
+    use 'wbthomason/packer.nvim'
 
-        -- use 'Yggdroot/indentLine'
+    -- [[ Common Dependencies and Libraries ]]
+    use 'nvim-treesitter/nvim-treesitter'   -- Enhanced Syntax Parsing and Highlighting
+    use 'nvim-tree/nvim-web-devicons'       -- NERDFont icons for many plugins
+    use 'neovim/nvim-lspconfig'             -- Configs for various LSP Servers
+    use {                                   -- Package Manager for LSPs, DAP, Linters, etc.
+        'williamboman/mason.nvim',
+        run = ':MasonUpdate' -- Update Registry Contents
+    }
+    use 'williamboman/mason-lspconfig.nvim' -- LSP Configs
+    use 'nvim-lua/plenary.nvim'
 
-        -- [[ Git and VCS ]]
-        use 'tpope/vim-fugitive'                -- More git stuff
-        use 'lewis6991/gitsigns.nvim'           -- Added/Removed/Modified Git Lines and Such
-        --use 'junegunn/gv.vim'                   -- Idk something with git
+    -- [[ LSP Completion Source ]]
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-nvim-lua'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
+    use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/nvim-cmp'                  -- NVIM Completion Framework
 
-        -- [[ Basic Code Editing ]]
-        use 'tpope/vim-commentary'              -- Uncomment/Comment lines of code with gc
-        use {
-            'phaazon/hop.nvim',
-            branch = 'v2',
-            config = function()
-                require('hop').setup({keys = 'etovxqpdygfblzhckisuran' })
-            end
-        }
+    -- [[ Other LSP ]]
+    use 'j-hui/fidget.nvim'                 -- Visualize LSP Progress
 
-        -- [[ Rust & LSP ]]
-        use 'williamboman/mason.nvim'
-        use 'williamboman/mason-lspconfig.nvim'
-        use 'neovim/nvim-lspconfig'
-        use 'simrat39/rust-tools.nvim'
-        use 'nvim-treesitter/nvim-treesitter'
+    -- [[ Navigation and UI ]]
+    use 'nvim-tree/nvim-tree.lua'           -- Filetree plugin
+    use 'romgrk/barbar.nvim'                -- Tabs for Buffers and easy buffer use
+    use 'Yggdroot/indentLine'               -- Show Indent Guides for Space Indents
 
-        -- [[ Debugging/CodeLLDB ]]
-        use 'puremourning/vimspector'
-
-        ---- [[ Completion Framework ]]
-        use 'hrsh7th/nvim-cmp'
-
-        ---- [[ LSP Completion Source ]]
-        use 'hrsh7th/cmp-nvim-lsp'
-
-        ---- [[ Useful Completion Sources ]]
-        use 'hrsh7th/cmp-nvim-lua'
-        use 'hrsh7th/cmp-nvim-lsp-signature-help'
-        use 'hrsh7th/cmp-vsnip'
-        use 'hrsh7th/cmp-path'
-        use 'hrsh7th/cmp-buffer'
-        use 'hrsh7th/vim-vsnip'
-
-        -- [[ Terminal ]]
-        use 'voldikss/vim-floaterm'
-
-        -- [[ Theme ]]
-        use 'mhinz/vim-startify'
-        use 'DanilaMihailov/beacon.nvim'
-        use 'nvim-lualine/lualine.nvim'
-        use 'Mofiqul/dracula.nvim'
-        use 'ellisonleao/gruvbox.nvim'
-        use 'sainnhe/gruvbox-material'
-        use 'sainnhe/everforest'
-        use {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && \
-            cmake --build build --config Release && \
-            cmake --install build --prefix build'
-        }
-        use {
-            'nvim-telescope/telescope.nvim',
-            tag = '0.1.1',
-            requires = {
-                {'nvim-lua/plenary.nvim'}
-            }
-        }
-        use 'preservim/tagbar'
-        use {
-            "folke/trouble.nvim",
-            requires = "nvim-tree/nvim-web-devicons",
-            config = function() require("trouble").setup {
-            }
+    use {                                   -- Move around very quickly
+        'phaazon/hop.nvim',
+        branch = 'v2',
+        config = function()
+            require('hop').setup({keys = 'etovxqpdygfblzhckisuran' })
         end
     }
 
-    use 'vim-autoformat/vim-autoformat'
+    -- [[ Telescope Navigation ]]
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && \
+        cmake --build build --config Release && \
+        cmake --install build --prefix build'
+    }
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.1',
+        requires = {
+            {'nvim-lua/plenary.nvim'}
+        }
+    }
+
+    -- [[ General Cleanup and Save Plugins ]]
+    use 'mboughaba/vim-lessmess'            -- Remove trailing whitespace, mixed, etc.
+    use 'jose-elias-alvarez/null-ls.nvim'   -- Not really sure actually
+
+    -- [[ Git and VCS ]]
+    use 'tpope/vim-fugitive'                -- Git commands with :G/:Git
+    use 'lewis6991/gitsigns.nvim'           -- Added/Removed/Modified Git Lines and Such
+    use 'junegunn/gv.vim'                   -- See Git Commit Log with :GV
+
+    -- [[ Basic Code Editing ]]
+    use 'tpope/vim-commentary'              -- Uncomment/Comment lines of code with gc
+
+    -- [[ Rust ]]
+    use 'simrat39/rust-tools.nvim'          -- Tools to make rust-analyzer LSP better
+
+    -- [[ Debugging/CodeLLDB ]]
+    use 'puremourning/vimspector'           -- Debugger for VIM
+
+    -- [[ Terminal ]]
+    use 'voldikss/vim-floaterm'             -- Awesome Floating Terminal
+
+    -- [[ Theme ]]
+    use 'mhinz/vim-startify'                -- Session Manager
+    use 'DanilaMihailov/beacon.nvim'        -- Show me where my cursor is when switching panes
+    use 'nvim-lualine/lualine.nvim'         -- Status Line
+    use 'Mofiqul/dracula.nvim'              -- Dracula Colorscheme
+    use 'ellisonleao/gruvbox.nvim'          -- Good ol' Gruvbox Colorscheme
+    use 'sainnhe/gruvbox-material'          -- Gruvbox Material Colorscheme (Easier on the eyes)
+    use 'sainnhe/everforest'                -- Everforeset Colorscheme
+
+    -- [[ Miscellaneous ]]
+    use 'preservim/tagbar'                  -- Tag Browser (Structures/Classes/Methods in File)
+    use 'folke/trouble.nvim'                -- Super Cool LSP Message Window
 end)
 
--- Automatically install plugins if there are any missing, and if packer was just installed
-if just_installed_packer then
-    require('packer').sync()
+if packer_bootstrap then
+    require("packer").sync()
+    return
 end
-end
-
--- Ensure Packer is installed and install plugins
-local just_installed_packer = ensure_packer_installed()
-install_plugins_with_packer(just_installed_packer)
-
