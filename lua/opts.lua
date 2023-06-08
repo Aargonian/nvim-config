@@ -39,3 +39,6 @@ opt.foldlevelstart = 99
 -- Treesitter folding
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Session Manager Options
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

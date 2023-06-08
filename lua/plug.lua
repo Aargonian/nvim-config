@@ -55,18 +55,20 @@ require('packer').startup(function(use)
 
     -- [[ Telescope Navigation ]]
     use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && \
-        cmake --build build --config Release && \
-        cmake --install build --prefix build'
-    }
-    use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         requires = {
             {'nvim-lua/plenary.nvim'}
         }
     }
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && \
+        cmake --build build --config Release && \
+        cmake --install build --prefix build'
+    }
+    use 'nvim-telescope/telescope-file-browser.nvim'
+    use 'nvim-telescope/telescope-project.nvim'
 
     -- [[ General Cleanup and Save Plugins ]]
     use 'mboughaba/vim-lessmess'            -- Remove trailing whitespace, mixed, etc.
@@ -90,7 +92,8 @@ require('packer').startup(function(use)
     use 'voldikss/vim-floaterm'             -- Awesome Floating Terminal
 
     -- [[ Theme ]]
-    use 'Shatur/neovim-session-manager'     -- Base Session Manager
+    --use 'Shatur/neovim-session-manager'     -- Base Session Manager
+    use 'rmagatti/auto-session'             -- Another Manager
     use {
         'goolord/alpha-nvim',               -- Session Manager
         config = function ()
