@@ -86,7 +86,7 @@ dashboard.section.footer.val = footer
 dashboard.section.buttons.val = {
     dashboard.button( "e", "📄 →  New file" , ":ene <BAR> startinsert <CR>"),
     dashboard.button( "f", "🔍 →  Find file", ":cd $HOME/Programming | Telescope find_files<CR>"),
-    dashboard.button( "p", "📁 →  Find project", ":Telescope projects <CR>"),
+    dashboard.button( "p", "📁 →  Find project", ":Telescope project<CR>"),
     dashboard.button( "r", "🔄 →  Recently used files", ":Telescope oldfiles <CR>"),
     dashboard.button( "s", "⚙️  →  Settings" , ":e $MYVIMRC<CR>"),
   --dashboard.button( "s", "⚙️  →  Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
