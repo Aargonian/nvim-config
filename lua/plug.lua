@@ -40,6 +40,9 @@ require('packer').startup(function(use)
     -- [[ Other LSP ]]
     use 'j-hui/fidget.nvim'                 -- Visualize LSP Progress
 
+    -- [[ Refactoring ]]
+    use 'ThePrimeagen/refactoring.nvim'
+
     -- [[ Navigation and UI ]]
     use 'nvim-tree/nvim-tree.lua'           -- Filetree plugin
     use 'romgrk/barbar.nvim'                -- Tabs for Buffers and easy buffer use
