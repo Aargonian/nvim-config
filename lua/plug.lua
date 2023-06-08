@@ -43,7 +43,7 @@ require('packer').startup(function(use)
     -- [[ Navigation and UI ]]
     use 'nvim-tree/nvim-tree.lua'           -- Filetree plugin
     use 'romgrk/barbar.nvim'                -- Tabs for Buffers and easy buffer use
-    use 'Yggdroot/indentLine'               -- Show Indent Guides for Space Indents
+    -- use 'Yggdroot/indentLine'               -- Show Indent Guides for Space Indents
 
     use {                                   -- Move around very quickly
         'phaazon/hop.nvim',
