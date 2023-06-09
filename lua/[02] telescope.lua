@@ -1,7 +1,25 @@
 local map = vim.api.nvim_set_keymap
 
--- You dont need to set any of these options. These are the default ones. Only
--- the loading is important
+-- Determine what kind of project we have for the project management
+local function determine_project_type(cwd)
+    local project_files = {
+        {name = "Cargo.toml", type = "rust"},
+        {name = "main.c", type = "c"},
+        {name = "main.cpp", type = "cpp"},
+        {name = "main.py", type = "python"},
+        {name = "Main.java", type = "java"},
+    }
+
+    for _, file in ipairs(project_files) do
+        if vim.loop.fs_stat(cwd .. "/" .. file.name) then
+            return file.type
+        end
+    end
+
+    return "unknown"
+end
+
+-- Mostly default options but we also have our own "project management" section which handles them a bit specially...
 require('telescope').setup {
     extensions = {
         fzf = {
@@ -18,46 +36,47 @@ require('telescope').setup {
             hidden_files = true,
             theme = 'dropdown',
             order_by = 'asc',
+            asdlkfjadfs
             search_by = 'title',
             sync_with_nvim_tree = 'true',
-            on_project_selected = function (prompt_bufnr)
+            on_project_selected = function(prompt_bufnr)
                 local actions = require('telescope.actions')
                 local state = require('telescope.actions.state')
                 local cwd = state.get_selected_entry(prompt_bufnr).value
                 vim.api.nvim_set_current_dir(cwd)
-
-                -- Close the Telescope prompt
                 actions.close(prompt_bufnr)
 
-                -- Close all existing buffers
+                -- Close all current buffers
                 vim.cmd('confirm bufdo bd')
 
-                -- Open NvimTree at the project root
-                vim.cmd("NvimTreeOpen")
+                local project_type = determine_project_type(cwd)
+                local load_project
 
-                local cargo_toml = cwd .. "/Cargo.toml"
-                if vim.loop.fs_stat(cargo_toml) then
-                    local main_rs = cwd .. "/src/main.rs"
-                    local lib_rs = cwd .. "/src/lib.rs"
+                if project_type == "rust" then
+                    load_project = require("project-langs.lang-rust").load_project
+                elseif project_type == "c" then
+                    load_project = require("project-langs.lang-c").load_project
+                elseif project_type == "cpp" then
+                    load_project = require("project-langs.lang-cpp").load_project
+                elseif project_type == "python" then
+                    load_project = require("project-langs.lang-python").load_project
+                elseif project_type == "java" then
+                    load_project = require("project-langs.lang-java").load_project
+                end
 
-                    if vim.loop.fs_stat(main_rs) then
-                        vim.api.nvim_command('e ' .. main_rs)
-                    elseif vim.loop.fs_stat(lib_rs) then
-                        vim.api.nvim_command('e ' .. lib_rs)
-                    else
-                        vim.api.nvim_command('enew')
-                    end
-
-                    local buffer_number = vim.api.nvim_get_current_buf()
-
-                    -- Open Tagbar
-                    vim.api.nvim_command('TagbarOpen')
-
-                    -- Refocus our new buffer
-                    vim.api.nvim_command('buffer ' .. buffer_number)
+                if load_project then
+                    load_project(cwd)
                 else
                     vim.api.nvim_command('enew')
                 end
+
+                -- Store our new buffer to refocus after we toggle 'NvimTreeOpen'
+                local buffer_number = vim.api.nvim_get_current_buf()
+
+                -- Open NvimTree, Tagbar, and focus our new buffer
+                vim.api.nvim_command('NvimTreeOpen')
+                vim.api.nvim_command('TagbarOpen')
+                vim.api.nvim_command('buffer ' .. buffer_number)
             end
         }
     }
