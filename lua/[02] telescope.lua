@@ -36,7 +36,6 @@ require('telescope').setup {
             hidden_files = true,
             theme = 'dropdown',
             order_by = 'asc',
-            asdlkfjadfs
             search_by = 'title',
             sync_with_nvim_tree = 'true',
             on_project_selected = function(prompt_bufnr)
