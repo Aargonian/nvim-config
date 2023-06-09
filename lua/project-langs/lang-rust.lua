@@ -50,7 +50,6 @@ function M.load_project(cwd)
 
         vim.api.nvim_err_writeln("Selected Project Path: " .. project_path)
 
-        aslfkjasdf
         -- Try to find 'main.rs' under 'src' or 'lib.rs' under 'src'
         local main_file = common.find_file(project_path, "main.rs") or common.find_file(project_path, "lib.rs")
         if main_file then
