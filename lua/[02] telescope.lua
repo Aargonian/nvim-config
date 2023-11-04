@@ -21,6 +21,11 @@ end
 
 -- Mostly default options but we also have our own "project management" section which handles them a bit specially...
 require('telescope').setup {
+    pickers = {
+        find_files = {
+            hidden = true
+        }
+    },
     extensions = {
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
