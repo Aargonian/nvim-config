@@ -1,22 +1,26 @@
 return {
     -- [[ LSP Completion Source ]]
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-nvim-lua',                 -- Lua Autocompletion
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'hrsh7th/cmp-vsnip',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/vim-vsnip',
     'hrsh7th/nvim-cmp',                     -- NVIM Completion Framework
-
+    dependencies = {
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lua',                 -- Lua Autocompletion
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-path',                     -- Completion for file system paths
+        'hrsh7th/cmp-buffer',                   -- Completion from current buffer
+        'hrsh7th/vim-vsnip',
+        'L3MON4D3/LuaSnip',                     -- Snippet Engine
+        'saadparwaiz1/cmp_luasnip',             -- for autocompletion
+        'rafamadriz/friendly-snippets',         -- useful snippets
+    },
     config = function()
         local opt = vim.opt
         local cmd = vim.api.nvim_command
 
         opt.completeopt = {'menuone', 'noselect', 'noinsert'}
         opt.shortmess = opt.shortmess + { c = true }
-        vim.api.nvim_set_option('updatetime', 300)
-        vim.opt.updatetime = 100
+        vim.api.nvim_set_option('updatetime', 50)
+        vim.opt.updatetime = 50
 
         -- Setup Completion
         local cmp = require('cmp')
@@ -24,14 +28,14 @@ return {
             preselect = cmp.PreselectMode.None,
             snippet = {
                 expand = function(args)
-                    vim.fn['vsnip#anonymous'](args.body)
+                    luasnip.lsp_expand(args.body)
                 end,
             },
             mapping = {
-                ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                ['<Tab>'] = cmp.mapping.select_next_item(),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.close(),
+                ['<C-k>'] = cmp.mapping.select_prev_item(),     -- Previous Suggestion
+                ['<C-j>'] = cmp.mapping.select_next_item(),     -- Next Suggestion
+                ['<C-Space>'] = cmp.mapping.complete(),         -- Show Completion Suggestions
+                ['<C-e>'] = cmp.mapping.abort(),                -- Close the window
                 ['<CR>'] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
@@ -43,6 +47,7 @@ return {
                 { name = 'vsnip' },
                 { name = 'path' },
                 { name = 'buffer' },
+                { name = 'luasnip' },
             },
         })
 

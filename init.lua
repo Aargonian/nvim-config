@@ -32,3 +32,6 @@ require("lazy").setup('plugins')
 
 -- Colorscheme
 vim.cmd('colorscheme gruvbox-material')
+
+-- Enable LSP Debugging
+vim.lsp.set_log_level("debug")

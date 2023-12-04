@@ -1,6 +1,4 @@
 return {
-    -- [[ Navigation and UI ]]
-
     -- [[ General Cleanup and Save Plugins ]]
     'mboughaba/vim-lessmess',            -- Remove trailing whitespace, mixed, etc.
     'jose-elias-alvarez/null-ls.nvim',   -- Not really sure actually
