@@ -58,7 +58,6 @@ return {
 
             -- LSP Status Information
             require('fidget').setup()
-
         end
     }
 }
