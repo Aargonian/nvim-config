@@ -28,7 +28,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup('plugins')
+require("lazy").setup('plugins', {
+    checker = { enabled = false }, -- Disable auto-updates
+})
 
 -- Colorscheme
 vim.cmd('colorscheme gruvbox-material')
