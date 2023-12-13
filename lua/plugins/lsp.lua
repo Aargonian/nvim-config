@@ -36,7 +36,9 @@ return {
             "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
         },
-
+        opts = {
+            inlay_hints = { enabled = true },
+        },
         config = function()
             require("mason").setup({
                 ui = {
@@ -61,6 +63,22 @@ return {
 
             -- LSP Status Information
             require('fidget').setup()
+
+            -- Setup Necessary Parameters for LSP
+            require('lspconfig').tsserver.setup({
+                init_options = {
+                    preferences = {
+                        includeInlayParameterNameHints = 'all',
+                        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                        includeInlayFunctionParameterTypeHints = true,
+                        includeInlayVariableTypeHints = true,
+                        includeInlayPropertyDeclarationTypeHints = true,
+                        includeInlayFunctionLikeReturnTypeHints = true,
+                        includeInlayEnumMemberValueHints = true,
+                        importModuleSpecifierPreference = 'non-relative',
+                    },
+                },
+            })
         end
     }
 }
