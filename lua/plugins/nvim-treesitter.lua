@@ -9,8 +9,12 @@ return {
                 "lua",
                 "rust",
                 "toml",
-                "javascript",
                 "python",
+                "javascript",
+                "typescript",
+                "html",
+                "css",
+                "json",
             },
             auto_install = true,
             highlight = {
