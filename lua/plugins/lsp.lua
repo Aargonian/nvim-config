@@ -2,6 +2,11 @@
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
+        -- Setup Inlay Hints
+        -- Currently Requires Neovim >0.10 (Nightly)
+        vim.lsp.inlay_hint.enable(ev.buf, true)
+
+        -- Setup Keybinds
         local keymap_opts = { buffer = ev.buf }
         vim.keymap.set('n', 'g[', vim.diagnostic.goto_prev, keymap_opts)
         vim.keymap.set('n', 'g]', vim.diagnostic.goto_next, keymap_opts)
@@ -37,8 +42,11 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         opts = {
-            inlay_hints = { enabled = true },
+            inlay_hints = {
+                enabled = true
+            },
         },
+
         config = function()
             require("mason").setup({
                 ui = {
