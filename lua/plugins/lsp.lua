@@ -63,6 +63,7 @@ return {
                     "pylsp",
                     "rust_analyzer",
                     "tsserver",
+                    "tailwindcss",
                 }
             }
 
@@ -87,6 +88,9 @@ return {
                     },
                 },
             })
+
+            -- Setup TailwindCSS server
+            require('lspconfig').tailwindcss.setup({})
         end
     }
 }
