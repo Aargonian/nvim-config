@@ -17,4 +17,12 @@ return {
     'sainnhe/gruvbox-material',          -- Gruvbox Material Colorscheme (Easier on the eyes)
     'sainnhe/everforest',                -- Everforest Colorscheme
     'kaicataldo/material.vim',           -- Material Colorscheme
+    'sjl/badwolf',
+    'cocopon/iceberg.vim',
+    'ayu-theme/ayu-vim',
+    'nordtheme/vim',
+    'preservim/vim-colors-pencil',
+
+    -- [[ Markdown ]]
+    'preservim/vim-markdown',
 }
