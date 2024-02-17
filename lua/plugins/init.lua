@@ -24,5 +24,5 @@ return {
     'preservim/vim-colors-pencil',
 
     -- [[ Markdown ]]
-    'preservim/vim-markdown',
+    -- 'preservim/vim-markdown',
 }

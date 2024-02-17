@@ -19,7 +19,7 @@ opt.termguicolors = true            -- Enable colors
 
 -- [[ Search ]]
 opt.ignorecase = true               -- Case-insensitive searching
-opt.smartcase = true                
+opt.smartcase = true
 opt.incsearch = true                -- Search one item at a time, rather than find-all
 opt.hlsearch = false                -- Don't highlight search
 
@@ -34,11 +34,11 @@ opt.splitright = true               -- New splits to the right by default
 opt.splitbelow = true               -- New splits below by default
 
 -- [[ Folding ]]
--- opt.foldlevelstart = 99
+opt.foldlevelstart = 99
 
 -- Treesitter folding
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- Session Manager Options
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

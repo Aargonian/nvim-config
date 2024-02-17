@@ -71,7 +71,7 @@ return {
                     },
                     project = {
                         base_dirs = {
-                            '~/Programming/Projects'
+                            '~/Projects'
                         },
                         hidden_files = true,
                         theme = 'dropdown',
