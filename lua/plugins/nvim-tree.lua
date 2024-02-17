@@ -27,13 +27,13 @@ return {
                 auto_open = true
             },
             update_focused_file = {
-                enable = true,
-                update_cwd = true,
+                enable = false,
+                update_cwd = false,
                 ignore_list = {}
             },
             git = {
                 enable = true,
-                ignore = true,
+                ignore = false,
                 timeout = 500
             },
             renderer = {
