@@ -2,9 +2,6 @@
 -- [[ SPEED - Significantly speeds up plugin loading ]]
 --vim.loader.enable()
 
--- Fix the clipboard to allow using the system clipboard
-vim.api.nvim_set_option('clipboard', 'unnamed')
-
 -- LEADER
 vim.g.mapleader = ','
 vim.g.localleader = '\\'

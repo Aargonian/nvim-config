@@ -29,6 +29,9 @@ opt.shiftwidth = 4                  -- Make tabs 4 spaces
 opt.softtabstop = 4
 opt.tabstop = 4
 
+-- [[ Clipboard ]]
+opt.clipboard = "unnamedplus"
+
 -- [[ Splits ]]
 opt.splitright = true               -- New splits to the right by default
 opt.splitbelow = true               -- New splits below by default
