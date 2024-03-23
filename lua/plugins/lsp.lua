@@ -62,7 +62,6 @@ return {
                     "lua_ls",
                     "pylsp",
                     "rust_analyzer",
-                    "tsserver",
                     "tailwindcss",
                 }
             }
@@ -91,6 +90,9 @@ return {
 
             -- Setup TailwindCSS server
             require('lspconfig').tailwindcss.setup({})
+
+            -- Setup NIX
+            require('lspconfig').nil_ls.setup({})
         end
     }
 }

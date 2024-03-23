@@ -9,6 +9,8 @@ return {
         "preservim/vim-markdown",
     },
     opts = {
+        new_notes_location = "current_dir",
+        preferred_link_style = "wiki",
         workspaces = {
             {
                 name = "personal",
@@ -18,8 +20,6 @@ return {
         completion = {
             nvim_cmp = true,
             min_chars = 0,
-            new_notes_location = "current_dir",
-            preferred_link_style = "wiki",
         },
         ui = {
             enable = true,  -- set to false to disable all additional syntax features
