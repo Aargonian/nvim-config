@@ -4,6 +4,7 @@ return {
         'nvim-tree/nvim-web-devicons',  -- NERDFont icons for many plugins
     },
     config = function()
+        require('nvim-treesitter.install').cmopilers = { "zig" }
         require('nvim-treesitter.configs').setup {
             ensure_installed = {
                 "lua",

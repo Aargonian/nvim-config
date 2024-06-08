@@ -5,6 +5,7 @@ return {
         require('barbar').setup({
             animation = true,
             clickable = true,
+            insert_at_end = true,
             highlight_visible = true,
             icons = {
                 buffer_index = true,
@@ -61,7 +62,7 @@ return {
         -- Wipeout buffer
         --                 :BufferWipeout
         -- Close commands
-        map('n', '<Leader-c>', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
+        map('n', '<Leader>bf', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
 
         -- :BufferCloseAllButPinned
         -- :BufferCloseAllButCurrentOrPinned
@@ -69,10 +70,10 @@ return {
         -- :BufferCloseBuffersRight
 
         -- Magic buffer-picking mode
-        map('n', '<C-b>', '<Cmd>BufferPick<CR>', opts)
+        map('n', '<Leader>bs', '<Cmd>BufferPick<CR>', opts)
 
         -- Close windows
-        map('n', '<C-c>', ':confirm BufferClose<CR>', {silent = true})
+        map('n', '<Leader>bc', ':confirm BufferClose<CR>', {silent = true})
         -- Sort automatically by...
         -- map('n', '<C-Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
         -- map('n', '<C-Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
@@ -89,7 +90,7 @@ return {
             callback = function()
                 vim.cmd [[
                   " Darcula theme base colors
-                  " Current Buffer
+                  " Current Buffer - The buffer is for a file open and visible in the focused pane
                   hi BufferCurrent         guifg='#A9B7C6' guibg='#000000' gui=NONE
                   hi BufferCurrentMod      guifg='#CF748E' guibg='#550000' gui=NONE
                   hi BufferCurrentSign     guifg='#A9B7C6' guibg='#000000' gui=NONE
@@ -98,7 +99,7 @@ return {
                   hi BufferCurrentIndex    guifg='#FFFF00' guibg='#000000' gui=NONE
                   hi BufferCurrentTarget   guifg='#9876AA' guibg='#000000' gui=NONE
 
-                  " Visible Buffer
+                  " Visible Buffer - The buffer is for a file open and visible on another pane, but not focused
                   hi BufferVisible         guifg='#6A8759' guibg='#000000' gui=NONE
                   hi BufferVisibleMod      guifg='#C97F69' guibg='#550000' gui=NONE
                   hi BufferVisibleSign     guifg='#6A8759' guibg='#000000' gui=NONE
@@ -107,7 +108,7 @@ return {
                   hi BufferVisibleIndex    guifg='#FF00FF' guibg='#000000' gui=NONE
                   hi BufferVisibleTarget   guifg='#9876AA' guibg='#000000' gui=NONE
 
-                  " Inactive Buffer
+                  " Inactive Buffer - The buffer is for a file open but not on a visible pane
                   hi BufferInactive        guifg='#808080' guibg='#000000' gui=NONE
                   hi BufferInactiveMod     guifg='#BF6477' guibg='#330000' gui=NONE
                   hi BufferInactiveSign    guifg='#808080' guibg='#000000' gui=NONE
