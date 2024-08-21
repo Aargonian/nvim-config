@@ -5,6 +5,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Setup Inlay Hints
         -- Currently Requires Neovim >0.10 (Nightly)
 --        vim.lsp.inlay_hint.enable(ev.buf, true)
+        -- Setup Signs
+        local signs = { Error = "🛑", Warn = "⚠️", Hint = "💡", Info = "ℹ️"}
+        for type, icon in pairs(signs) do
+          local hl = "DiagnosticSign" .. type
+          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        end
 
         -- Setup Keybinds
         local keymap_opts = { buffer = ev.buf }
@@ -40,6 +46,7 @@ return {
             },
             "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
+            "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
         },
         opts = {
             inlay_hints = {
@@ -93,6 +100,9 @@ return {
 
             -- Setup NIX
             require('lspconfig').nil_ls.setup({})
+
+            -- Setup LSP Diagnostics
+            require('toggle_lsp_diagnostics').init()
         end
     }
 }
