@@ -12,6 +12,7 @@ return {
                 "html",
                 "css",
                 "json",
+                "c_sharp",
             },
             auto_install = true,
             highlight = {
