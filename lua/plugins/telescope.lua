@@ -5,12 +5,11 @@ return {
         branch = '0.1.x',
         dependencies = {
             'nvim-lua/plenary.nvim',
-        }
-    },
-
-    {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+            },
+        },
     },
 
     'nvim-telescope/telescope-file-browser.nvim',
@@ -69,7 +68,7 @@ return {
                     },
                     project = {
                         base_dirs = {
-                            '~/Data/Projects'
+                            '~/source/repos/'
                         },
                         hidden_files = true,
                         theme = 'dropdown',
@@ -84,7 +83,6 @@ return {
             }
             -- To get fzf loaded and working with telescope, you need to call
             -- load_extension, somewhere after setup function:
-            require('telescope').load_extension('fzf')
             require('telescope').load_extension('project')
 
             map('n', '<Leader>ff', ':Telescope find_files<CR>', {silent = true})

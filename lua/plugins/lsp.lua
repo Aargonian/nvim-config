@@ -67,9 +67,6 @@ return {
             require("mason-lspconfig").setup{
                 ensure_installed = {
                     "lua_ls",
-                    "pylsp",
-                    "rust_analyzer",
-                    "tailwindcss",
                 }
             }
 
@@ -79,30 +76,13 @@ return {
             -- LSP Status Information
             require('fidget').setup()
 
-            -- Setup Necessary Parameters for LSP
-            require('lspconfig').tsserver.setup({
-                init_options = {
-                    preferences = {
-                        includeInlayParameterNameHints = 'all',
-                        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                        includeInlayFunctionParameterTypeHints = true,
-                        includeInlayVariableTypeHints = true,
-                        includeInlayPropertyDeclarationTypeHints = true,
-                        includeInlayFunctionLikeReturnTypeHints = true,
-                        includeInlayEnumMemberValueHints = true,
-                        importModuleSpecifierPreference = 'non-relative',
-                    },
-                },
-            })
-
-            -- Setup TailwindCSS server
-            require('lspconfig').tailwindcss.setup({})
-
-            -- Setup NIX
-            require('lspconfig').nil_ls.setup({})
-
             -- Setup LSP Diagnostics
             require('toggle_lsp_diagnostics').init()
+
+            -- Setup Omnisharp
+            require('lspconfig').omnisharp.setup {
+                capabilities = capabilities
+            }
         end
     }
 }

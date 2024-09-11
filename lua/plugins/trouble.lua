@@ -45,6 +45,11 @@ return {
                 previous = "k", -- previous item
                 next = "j" -- next item
             },
+            opts = {
+                diagnostics = {
+                    auto_open = true
+                },
+            },
             indent_lines = true, -- add an indent guide below the fold icons
             auto_close = true, -- automatically close the list when you have no diagnostics
             auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
