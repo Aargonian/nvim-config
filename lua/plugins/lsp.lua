@@ -80,7 +80,7 @@ return {
             require('fidget').setup()
 
             -- Setup Necessary Parameters for LSP
-            require('lspconfig').tsserver.setup({
+            require('lspconfig').ts_ls.setup({
                 init_options = {
                     preferences = {
                         includeInlayParameterNameHints = 'all',

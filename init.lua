@@ -29,8 +29,7 @@ require("lazy").setup('plugins', {
     checker = { enabled = false }, -- Disable auto-updates
 })
 
--- Colorscheme
-vim.cmd('colorscheme gruvbox-material')
-
+-- setup must be called before loading
+vim.cmd.colorscheme "catppuccin"
 -- Enable LSP Debugging
 vim.lsp.set_log_level("debug")
