@@ -2,6 +2,9 @@
 -- [[ SPEED - Significantly speeds up plugin loading ]]
 --vim.loader.enable()
 
+-- Colorscheme baby!
+require('colorscheme')
+
 -- LEADER
 vim.g.mapleader = ','
 vim.g.localleader = '\\'
@@ -29,7 +32,5 @@ require("lazy").setup('plugins', {
     checker = { enabled = false }, -- Disable auto-updates
 })
 
--- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
 -- Enable LSP Debugging
 vim.lsp.set_log_level("debug")
