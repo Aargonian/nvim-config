@@ -162,7 +162,7 @@ local apply_colorscheme = function()
   }
 
   -- Apply lualine theme
-  vim.g.monokai_pro_lualine_theme = lualine_theme
+  vim.g.nytegear_lualine_theme = lualine_theme
 
   -- trouble.nvim
   hl("TroubleText", { fg = colors.fg })
