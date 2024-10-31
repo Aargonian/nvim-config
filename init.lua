@@ -2,6 +2,9 @@
 -- [[ SPEED - Significantly speeds up plugin loading ]]
 --vim.loader.enable()
 
+-- Colorscheme baby!
+require('colorscheme')
+
 -- LEADER
 vim.g.mapleader = ','
 vim.g.localleader = '\\'
@@ -28,9 +31,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup('plugins', {
     checker = { enabled = false }, -- Disable auto-updates
 })
-
--- Colorscheme
-vim.cmd('colorscheme gruvbox-material')
 
 -- Enable LSP Debugging
 vim.lsp.set_log_level("debug")

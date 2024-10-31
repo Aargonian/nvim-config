@@ -3,7 +3,7 @@ return {
     config = function()
         require('lualine').setup {
             options = {
-                theme = 'everforest'
+                theme = vim.g.nytegear_lualine_theme,
             },
         }
     end
