@@ -4,59 +4,57 @@
 -- License: MIT
 
 local colors = {
-  -- Define the color palette
-  bg          = "#2D2A2E",
-  fg          = "#F8F8F2",
-  selection   = "#49483E",
-  comment     = "#75715E",
-  red         = "#F92672",
-  orange      = "#FD971F",
-  yellow      = "#E6DB74",
-  green       = "#A6E22E",
-  cyan        = "#66D9EF",
-  blue        = "#61AFEF",
-  purple      = "#AE81FF",
-  pink        = "#FF79C6",
-  bright_red  = "#FF5555",
-  bright_green= "#50FA7B",
-  bright_yellow="#F1FA8C",
-  bright_blue = "#BD93F9",
-  bright_magenta="#FF79C6",
-  bright_cyan = "#8BE9FD",
-  bright_white="#FFFFFF",
+  bg            = "#1D1A1E",
+  fg            = "#FCFCFA",
+  selection     = "#49483E",
+  comment       = "#727072",
+  pink          = "#FF6188", -- Also used as red
+  red           = "#FF6188",
+  orange        = "#FC9867",
+  yellow        = "#FFD866",
+  green         = "#A9DC76",
+  cyan          = "#78DCE8",
+  purple        = "#AB9DF2",
+
+  -- Bright variants (lighter than their original)
+  bright_red     = "#FF8FAA",
+  bright_green   = "#C2E892",
+  bright_yellow  = "#FFE992",
+  bright_blue    = "#A0E1F0", -- Lighter cyan used as "blue"
+  bright_magenta = "#C7B8FA", -- Lightened purple as a magenta stand-in
+  bright_cyan    = "#A0E1F0", 
+  bright_white   = "#FFFFFF",
+
   menu        = "#3E3D32",
   visual      = "#49483E",
-  gutter_fg   = "#75715E",
+  gutter_fg   = "#727072",
   nontext     = "#3B3A32",
 
-  -- Additional colors for barbar
-  tab_bg         = "#1E1C1F", -- Darker than editor background
-  tab_fg         = "#F8F8F2", -- Brighter text for tabs
-  tab_inactive_fg= "#75715E", -- Inactive tab text color
-  tab_modified_fg= "#FD971F", -- Orange color for modified tabs
+  -- Barbar-specific tab colors
+  tab_bg          = "#1E1C1F",
+  tab_fg          = "#FCFCFA",
+  tab_inactive_fg = "#727072",
+  tab_modified_fg = "#FC9867",
 }
 
 local hl = function(group, opts)
   vim.api.nvim_set_hl(0, group, opts)
 end
 
--- Apply the colorscheme
 local apply_colorscheme = function()
-  -- Clear existing highlights
   vim.cmd("highlight clear")
   vim.cmd("syntax reset")
 
-  -- Set the terminal colors
-  vim.g.terminal_color_0 = colors.bg
-  vim.g.terminal_color_1 = colors.red
-  vim.g.terminal_color_2 = colors.green
-  vim.g.terminal_color_3 = colors.yellow
-  vim.g.terminal_color_4 = colors.blue
-  vim.g.terminal_color_5 = colors.purple
-  vim.g.terminal_color_6 = colors.cyan
-  vim.g.terminal_color_7 = colors.fg
-  vim.g.terminal_color_8 = colors.comment
-  vim.g.terminal_color_9 = colors.bright_red
+  vim.g.terminal_color_0  = colors.bg
+  vim.g.terminal_color_1  = colors.red
+  vim.g.terminal_color_2  = colors.green
+  vim.g.terminal_color_3  = colors.yellow
+  vim.g.terminal_color_4  = colors.cyan
+  vim.g.terminal_color_5  = colors.purple
+  vim.g.terminal_color_6  = colors.cyan
+  vim.g.terminal_color_7  = colors.fg
+  vim.g.terminal_color_8  = colors.comment
+  vim.g.terminal_color_9  = colors.bright_red
   vim.g.terminal_color_10 = colors.bright_green
   vim.g.terminal_color_11 = colors.bright_yellow
   vim.g.terminal_color_12 = colors.bright_blue
@@ -64,7 +62,7 @@ local apply_colorscheme = function()
   vim.g.terminal_color_14 = colors.bright_cyan
   vim.g.terminal_color_15 = colors.bright_white
 
-  -- Set general highlights
+  -- Base editor highlighting
   hl("Normal", { fg = colors.fg, bg = colors.bg })
   hl("Comment", { fg = colors.comment, italic = true })
   hl("Constant", { fg = colors.cyan })
@@ -73,38 +71,38 @@ local apply_colorscheme = function()
   hl("Number", { fg = colors.purple })
   hl("Boolean", { fg = colors.purple })
   hl("Float", { fg = colors.purple })
-  hl("Identifier", { fg = colors.red })
+  hl("Identifier", { fg = colors.fg })
   hl("Function", { fg = colors.green })
   hl("Statement", { fg = colors.pink })
   hl("Conditional", { fg = colors.pink })
   hl("Repeat", { fg = colors.pink })
   hl("Label", { fg = colors.pink })
   hl("Operator", { fg = colors.fg })
-  hl("Keyword", { fg = colors.red })
+  hl("Keyword", { fg = colors.pink })
   hl("Exception", { fg = colors.pink })
   hl("PreProc", { fg = colors.green })
   hl("Include", { fg = colors.pink })
   hl("Define", { fg = colors.pink })
   hl("Macro", { fg = colors.pink })
   hl("PreCondit", { fg = colors.green })
-  hl("Type", { fg = colors.blue })
-  hl("StorageClass", { fg = colors.blue })
-  hl("Structure", { fg = colors.blue })
-  hl("Typedef", { fg = colors.blue })
+  hl("Type", { fg = colors.purple })
+  hl("StorageClass", { fg = colors.purple })
+  hl("Structure", { fg = colors.purple })
+  hl("Typedef", { fg = colors.purple })
   hl("Special", { fg = colors.cyan })
   hl("SpecialComment", { fg = colors.comment })
-  hl("Error", { fg = colors.bright_red })
+  hl("Error", { fg = colors.red })
   hl("Todo", { fg = colors.yellow, bg = colors.bg, bold = true })
 
-  -- Set Treesitter highlights
+  -- Treesitter
   hl("@comment", { fg = colors.comment, italic = true })
-  hl("@keyword", { fg = colors.red })
+  hl("@keyword", { fg = colors.pink })
   hl("@keyword.function", { fg = colors.pink })
   hl("@function", { fg = colors.green })
   hl("@string", { fg = colors.yellow })
   hl("@variable", { fg = colors.fg })
   hl("@variable.builtin", { fg = colors.orange })
-  hl("@type", { fg = colors.blue })
+  hl("@type", { fg = colors.purple })
   hl("@constant", { fg = colors.cyan })
   hl("@number", { fg = colors.purple })
   hl("@boolean", { fg = colors.purple })
@@ -114,12 +112,10 @@ local apply_colorscheme = function()
   hl("@punctuation.delimiter", { fg = colors.fg })
   hl("@punctuation.bracket", { fg = colors.fg })
 
-  -- Plugin support
-
   -- nvim-tree
   hl("NvimTreeNormal", { fg = colors.fg, bg = colors.bg })
-  hl("NvimTreeFolderName", { fg = colors.blue })
-  hl("NvimTreeOpenedFolderName", { fg = colors.blue, bold = true })
+  hl("NvimTreeFolderName", { fg = colors.cyan })
+  hl("NvimTreeOpenedFolderName", { fg = colors.cyan, bold = true })
   hl("NvimTreeEmptyFolderName", { fg = colors.comment })
   hl("NvimTreeIndentMarker", { fg = colors.nontext })
   hl("NvimTreeVertSplit", { fg = colors.bg, bg = colors.bg })
@@ -127,7 +123,7 @@ local apply_colorscheme = function()
   hl("NvimTreeSymlink", { fg = colors.cyan })
   hl("NvimTreeStatuslineNc", { fg = colors.bg, bg = colors.bg })
 
-  -- lualine
+  -- lualine theme
   local lualine_theme = {
     normal = {
       a = { fg = colors.bg, bg = colors.green, gui = 'bold' },
@@ -135,7 +131,7 @@ local apply_colorscheme = function()
       c = { fg = colors.fg, bg = colors.bg },
     },
     insert = {
-      a = { fg = colors.bg, bg = colors.blue, gui = 'bold' },
+      a = { fg = colors.bg, bg = colors.cyan, gui = 'bold' },
       b = { fg = colors.fg, bg = colors.menu },
       c = { fg = colors.fg, bg = colors.bg },
     },
@@ -160,8 +156,6 @@ local apply_colorscheme = function()
       c = { fg = colors.comment, bg = colors.bg },
     },
   }
-
-  -- Apply lualine theme
   vim.g.nytegear_lualine_theme = lualine_theme
 
   -- trouble.nvim
@@ -170,7 +164,7 @@ local apply_colorscheme = function()
   hl("TroubleNormal", { fg = colors.fg, bg = colors.bg })
 
   -- barbar.nvim
-  -- Current Buffer - The buffer is open and visible in the focused pane
+  -- Current Buffer
   hl("BufferCurrent",        { fg = colors.tab_fg, bg = colors.bg })
   hl("BufferCurrentMod",     { fg = colors.tab_modified_fg, bg = colors.bg })
   hl("BufferCurrentSign",    { fg = colors.tab_fg, bg = colors.bg })
@@ -179,22 +173,22 @@ local apply_colorscheme = function()
   hl("BufferCurrentIndex",   { fg = colors.yellow, bg = colors.bg })
   hl("BufferCurrentTarget",  { fg = colors.purple, bg = colors.bg })
 
-  -- Visible Buffer - The buffer is open and visible on another pane
+  -- Visible Buffer
   hl("BufferVisible",        { fg = colors.tab_fg, bg = colors.tab_bg })
   hl("BufferVisibleMod",     { fg = colors.tab_modified_fg, bg = colors.tab_bg })
   hl("BufferVisibleSign",    { fg = colors.tab_fg, bg = colors.tab_bg })
   hl("BufferVisibleNumber",  { fg = colors.pink, bg = colors.tab_bg, bold = true })
-  hl("BufferVisibleIcon",    { fg = colors.blue, bg = colors.tab_bg })
+  hl("BufferVisibleIcon",    { fg = colors.cyan, bg = colors.tab_bg })
   hl("BufferVisibleIndex",   { fg = colors.pink, bg = colors.tab_bg })
   hl("BufferVisibleTarget",  { fg = colors.purple, bg = colors.tab_bg })
 
-  -- Inactive Buffer - The buffer is open but not visible
+  -- Inactive Buffer
   hl("BufferInactive",       { fg = colors.tab_inactive_fg, bg = colors.tab_bg })
   hl("BufferInactiveMod",    { fg = colors.orange, bg = colors.tab_bg })
   hl("BufferInactiveSign",   { fg = colors.tab_inactive_fg, bg = colors.tab_bg })
-  hl("BufferInactiveNumber", { fg = colors.bright_white, bg = colors.tab_bg, bold = true })
-  hl("BufferInactiveIcon",   { fg = colors.blue, bg = colors.tab_bg })
-  hl("BufferInactiveIndex",  { fg = colors.bright_white, bg = colors.tab_bg })
+  hl("BufferInactiveNumber", { fg = colors.fg, bg = colors.tab_bg, bold = true })
+  hl("BufferInactiveIcon",   { fg = colors.cyan, bg = colors.tab_bg })
+  hl("BufferInactiveIndex",  { fg = colors.fg, bg = colors.tab_bg })
   hl("BufferInactiveTarget", { fg = colors.purple, bg = colors.tab_bg })
 
   -- Buffer Tabpages
@@ -202,16 +196,16 @@ local apply_colorscheme = function()
   hl("BufferTabpageFill",    { fg = colors.fg, bg = colors.bg })
 
   -- floatterm
-  hl("FloatermBorder", { fg = colors.blue, bg = colors.bg })
+  hl("FloatermBorder", { fg = colors.cyan, bg = colors.bg })
   hl("Floaterm",       { fg = colors.fg, bg = colors.bg })
 
-  -- Set additional UI elements
+  -- UI Elements
   hl("CursorLine", { bg = colors.selection })
   hl("CursorLineNr", { fg = colors.yellow, bg = colors.selection })
   hl("LineNr", { fg = colors.gutter_fg })
   hl("Visual", { bg = colors.visual })
   hl("Pmenu", { fg = colors.fg, bg = colors.menu })
-  hl("PmenuSel", { fg = colors.bg, bg = colors.blue })
+  hl("PmenuSel", { fg = colors.bg, bg = colors.cyan })
   hl("PmenuSbar", { bg = colors.menu })
   hl("PmenuThumb", { bg = colors.comment })
   hl("VertSplit", { fg = colors.nontext })
