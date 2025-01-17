@@ -70,7 +70,8 @@ return {
                     },
                     project = {
                         base_dirs = {
-                            '~'
+                            '~',
+                            '~/Projects',
                         },
                         hidden_files = true,
                         theme = 'dropdown',
