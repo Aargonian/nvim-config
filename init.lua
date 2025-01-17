@@ -3,7 +3,7 @@
 --vim.loader.enable()
 
 -- Colorscheme baby!
-require('colorscheme')
+-- require('colorscheme')
 
 -- LEADER
 vim.g.mapleader = ','
@@ -31,6 +31,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup('plugins', {
     checker = { enabled = false }, -- Disable auto-updates
 })
+
+-- Set default colorscheme
+vim.cmd 'colorscheme monokai-pro-classic'
 
 -- Enable LSP Debugging
 vim.lsp.set_log_level("debug")
