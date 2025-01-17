@@ -1,4 +1,4 @@
--- Setup Keybindings for LSP
+-- Setup Keybindings for LSP on attach. Must be defined on attach.
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
@@ -6,12 +6,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Currently Requires Neovim >0.10 (Nightly)
         --vim.lsp.inlay_hint.enable(ev.buf, true)
         vim.lsp.inlay_hint.enable(true)
+
         -- Setup Signs
-        local signs = { Error = "🛑", Warn = "⚠️", Hint = "💡", Info = "ℹ️"}
-        for type, icon in pairs(signs) do
-          local hl = "DiagnosticSign" .. type
-          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-        end
+        vim.diagnostic.config({
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = "🛑",
+                    [vim.diagnostic.severity.WARN]  = "⚠️",
+                    [vim.diagnostic.severity.HINT]  = "💡",
+                    [vim.diagnostic.severity.INFO]  = "ℹ️"
+                }
+            }
+        })
 
         -- Setup Keybinds
         local keymap_opts = { buffer = ev.buf }
@@ -47,7 +53,6 @@ return {
             },
             "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
         },
         opts = {
             inlay_hints = {
@@ -74,7 +79,7 @@ return {
             }
 
             -- Setup Neodev before LSP Config
-            require("neodev").setup()
+--            require("neodev").setup()
 
             -- LSP Status Information
             require('fidget').setup()
@@ -100,9 +105,6 @@ return {
 
             -- Setup NIX
             require('lspconfig').nil_ls.setup({})
-
-            -- Setup LSP Diagnostics
-            require('toggle_lsp_diagnostics').init()
         end
     }
 }
