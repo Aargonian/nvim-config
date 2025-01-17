@@ -10,12 +10,15 @@ return {
                 auto_close = false,
                 open_no_results = true,
             },
-            symbols = {
+            lsp_document_symbols = {
                 auto_open = true,
                 auto_close = false,
                 open_no_results = true,
                 win = {
-                    position = "right"
+                    type = "split",
+                    relative = "editor",
+                    position = "right",
+                    size = { width = 40, height = 16 },
                 },
             }
         },
