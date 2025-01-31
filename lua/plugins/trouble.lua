@@ -11,7 +11,7 @@ return {
                 open_no_results = true,
             },
             lsp_document_symbols = {
-                auto_open = true,
+                auto_open = false,
                 auto_close = false,
                 open_no_results = true,
                 win = {
@@ -37,7 +37,7 @@ return {
         },
         {
           "<leader>cs",
-          "<cmd>Trouble symbols toggle focus=false<cr>",
+          "<cmd>Trouble lsp_document_symbols toggle focus=false<cr>",
             desc = "Symbols (Trouble)",
         },
         {
