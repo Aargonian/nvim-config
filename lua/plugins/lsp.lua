@@ -24,9 +24,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'g[', vim.diagnostic.goto_prev, keymap_opts)
         vim.keymap.set('n', 'g]', vim.diagnostic.goto_next, keymap_opts)
         vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, keymap_opts)
-        vim.keymap.set('n', 'gs', vim.lsp.buf.hover, keymap_opts)
+        vim.keymap.set('n', 'gh', vim.lsp.buf.hover, keymap_opts)
+        vim.keymap.set('i', '<C-Space>', vim.lsp.buf.hover, keymap_opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, keymap_opts)
-        vim.keymap.set('n', 'gy', vim.lsp.buf.signature_help, keymap_opts)
+        vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, keymap_opts)
         vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, keymap_opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, keymap_opts)
         vim.keymap.set('n', 'g0', vim.lsp.buf.document_symbol, keymap_opts)
@@ -55,6 +56,9 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         opts = {
+            uesrLanguages = {
+                rust = "html",
+            },
             inlay_hints = {
                 enabled = true
             },
@@ -105,6 +109,29 @@ return {
 
             -- Setup NIX
             require('lspconfig').nil_ls.setup({})
+
+            -- Setup Lua
+            require('lspconfig').lua_ls.setup({
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { 'vim' },
+                            disable = { 'missing-fields' },
+                        },
+                        runtime = {
+                            version = "LuaJIT",
+                        },
+                        workspace = {
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                    }
+                }
+            })
+
+            -- Setup HTML
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
+            require('lspconfig').html.setup({ capabilities = capabilities, })
         end
     }
 }
