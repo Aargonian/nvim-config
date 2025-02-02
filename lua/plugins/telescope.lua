@@ -20,25 +20,6 @@ return {
         config = function()
             local map = vim.api.nvim_set_keymap
 
-            -- Determine what kind of project we have for the project management
-            local function determine_project_type(cwd)
-                local project_files = {
-                    {name = "Cargo.toml", type = "rust"},
-                    {name = "main.c", type = "c"},
-                    {name = "main.cpp", type = "cpp"},
-                    {name = "main.py", type = "python"},
-                    {name = "Main.java", type = "java"},
-                }
-
-                for _, file in ipairs(project_files) do
-                    if vim.loop.fs_stat(cwd .. "/" .. file.name) then
-                        return file.type
-                    end
-                end
-
-                return "unknown"
-            end
-
             -- Set actions for the later keybinds
             local actions = require("telescope.actions")
 
@@ -71,6 +52,7 @@ return {
                     project = {
                         base_dirs = {
                             '~',
+                            '~/Configs/',
                             '~/Projects',
                         },
                         hidden_files = true,
