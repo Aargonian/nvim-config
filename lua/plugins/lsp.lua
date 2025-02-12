@@ -74,16 +74,14 @@ return {
                     },
                 }
             })
+
             require("mason-lspconfig").setup{
                 ensure_installed = {
                     "lua_ls",
                     "pylsp",
-                    "tailwindcss",
+                    "omnisharp",
                 }
             }
-
-            -- Setup Neodev before LSP Config
---            require("neodev").setup()
 
             -- LSP Status Information
             require('fidget').setup()
@@ -132,6 +130,11 @@ return {
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
             require('lspconfig').html.setup({ capabilities = capabilities, })
+
+            -- Setup Omnisharp
+            require('lspconfig').omnisharp.setup {
+                capabilities = capabilities
+            }
         end
     }
 }
