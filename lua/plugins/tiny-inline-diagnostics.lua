@@ -10,7 +10,13 @@ return {
                 multilines = {
                     enabled = true,
                     always_show = true,
-                }
+                },
+                overflow = {
+                    mode = "none",
+                },
+                break_line = {
+                    enabled = true,
+                },
             },
         }
         vim.diagnostic.config({ virtual_text = false })
