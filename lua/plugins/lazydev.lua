@@ -20,22 +20,30 @@ return {
       })
     end,
   },
-  { -- optional blink completion source for require statements and module annotations
-    "saghen/blink.cmp",
-    opts = {
-      sources = {
-        -- add lazydev to your completion providers
-        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-        providers = {
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
-            -- make lazydev completions top priority (see `:h blink.cmp`)
-            score_offset = 100,
-          },
-        },
-      },
-    },
-  }
-  -- { "folke/neodev.nvim", enabled = false }, -- make sure to uninstall or disable neodev.nvim
+  -- { -- optional blink completion source for require statements and module annotations
+  --   "saghen/blink.cmp",
+  --   tag = "v0.11.0",
+  --   opts = {
+  --     sources = {
+  --       -- add lazydev to your completion providers
+  --       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+  --       providers = {
+  --         lazydev = {
+  --           name = "LazyDev",
+  --           module = "lazydev.integrations.blink",
+  --           -- make lazydev completions top priority (see `:h blink.cmp`)
+  --           score_offset = 100,
+  --         },
+  --       },
+  --     },
+  --     fuzzy = {
+  --       prebuilt_binaries = {
+  --         download = true,
+  --         force_version = nil,
+  --         force_system_triple = nil,
+  --         extra_curl_args = { '--insecure' }
+  --       },
+  --     },
+  --   },
+  -- }
 }

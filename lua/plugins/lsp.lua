@@ -52,7 +52,6 @@ return {
                 tag = "legacy",
                 event = "LspAttach",
             },
-            "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
         },
         opts = {
