@@ -101,14 +101,24 @@ return {
                 },
             })
 
+            local servers = require('lspconfig')
+
             -- Setup TailwindCSS server
-            require('lspconfig').tailwindcss.setup({})
+            servers.tailwindcss.setup({})
 
             -- Setup NIX
-            require('lspconfig').nil_ls.setup({})
+            servers.nil_ls.setup({})
+
+            -- Setup Bash Server
+            servers.bashls.setup({
+                filetypes = { 'bash', 'sh', 'zsh' }
+            })
+
+            -- Setup Python
+            servers.pylsp.setup({})
 
             -- Setup Lua
-            require('lspconfig').lua_ls.setup({
+            servers.lua_ls.setup({
                 settings = {
                     Lua = {
                         diagnostics = {
