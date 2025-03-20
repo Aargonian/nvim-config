@@ -52,7 +52,9 @@ return {
                     project = {
                         base_dirs = {
                             '~',
+                            '~/Projects',
                         },
+                        ignore_missing_dirs = true,
                         hidden_files = true,
                         theme = 'dropdown',
                         order_by = 'asc',
