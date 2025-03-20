@@ -29,7 +29,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup('plugins', {
-    checker = { enabled = false }, -- Disable auto-updates
+    checker = { 
+        enabled = true 
+    },
 })
 
 -- Set default colorscheme
