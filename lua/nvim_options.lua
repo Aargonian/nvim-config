@@ -3,7 +3,7 @@ local opt = vim.opt                 -- Convenient
 local cmd = vim.api.nvim_command    -- Convenient
 
 -- [[ Context ]]
-opt.colorcolumn = '100'             -- Color Column 120 for easy line-length checking
+opt.colorcolumn = '100'             -- Color Column 100 for easy line-length checking
 opt.number = true                   -- Enable line numbers
 opt.relativenumber = false          -- Line numbers relative to the current line
 opt.scrolloff = 4                   -- Allow scrolling up to 4 characters past the end

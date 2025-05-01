@@ -19,38 +19,7 @@ return {
 
         opt.completeopt = {'menuone', 'noselect', 'noinsert'}
         opt.shortmess = opt.shortmess + { c = true }
-        vim.api.nvim_set_option('updatetime', 50)
         vim.opt.updatetime = 50
-
-        -- Setup Completion
-        local cmp = require('cmp')
-        cmp.setup({
-            preselect = cmp.PreselectMode.None,
-            snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end,
-            },
-            mapping = {
-                ['<C-k>'] = cmp.mapping.select_prev_item(),     -- Previous Suggestion
-                ['<C-j>'] = cmp.mapping.select_next_item(),     -- Next Suggestion
-                ['<C-Space>'] = cmp.mapping.complete(),         -- Show Completion Suggestions
-                ['<C-e>'] = cmp.mapping.abort(),                -- Close the window
-                ['<CR>'] = cmp.mapping.confirm({
-                    behavior = cmp.ConfirmBehavior.Insert,
-                    select = true,
-                }),
-            },
-
-            sources = {
-                { name = 'nvim_lsp' },
-                { name = 'vsnip' },
-                { name = 'path' },
-                { name = 'buffer' },
-                { name = 'luasnip' },
-            },
-        })
-
 
         -- local diag_float_grp = vim.api.nvim_create_augroup('DiagnosticFloat', {clear = true})
         -- vim.api.nvim_create_autocmd('CursorHold', {
@@ -62,25 +31,35 @@ return {
 
         -- Completion Plugin Setup
         local cmp = require('cmp')
+        local luasnip = require'luasnip'
+
+        luasnip.filetype_extend("all", { "_" })
+        require("luasnip.loaders.from_vscode").lazy_load()
+
         cmp.setup({
+            preselect = cmp.PreselectMode.None,
+
             -- Enable LSP snippets
             snippet = {
                 expand = function(args)
-                    vim.fn["vsnip#anonymous"](args.body)
+                    luasnip.lsp_expand(args.body)
                 end,
+                -- expand = function(args)
+                --     vim.fn["vsnip#anonymous"](args.body)
+                -- end,
             },
+
             mapping = {
-                ['<C-p>'] = cmp.mapping.select_prev_item(),
-                ['<C-n>'] = cmp.mapping.select_next_item(),
-                -- Add tab support
-                ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                ['<Tab>'] = cmp.mapping.select_next_item(),
-                ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.close(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true })
+                ['<C-k>'] = cmp.mapping.select_prev_item(),     -- Previous Suggestion
+                ['<C-j>'] = cmp.mapping.select_next_item(),     -- Next Suggestion
+                ['<C-Space>'] = cmp.mapping.complete(),         -- Show Completion Suggestions
+                ['<C-e>'] = cmp.mapping.abort(),                -- Close the window
+                ['<CR>'] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Insert,
+                    select = false,
+                }),
             },
+
             -- Installed sources:
             sources = {
                 { name = 'path' },                              -- file paths
@@ -89,12 +68,15 @@ return {
                 { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
                 { name = 'buffer', keyword_length = 2 },        -- source current buffer
                 { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip
+                { name = 'luasnip' },
                 { name = 'calc'},                               -- source for math calculation
             },
+
             window = {
                 completion = cmp.config.window.bordered(),
                 documentation = cmp.config.window.bordered(),
             },
+
             formatting = {
                 fields = {'menu', 'abbr', 'kind'},
                 format = function(entry, item)

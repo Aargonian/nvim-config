@@ -36,7 +36,7 @@ return {
             desc = "Buffer Diagnostics (Trouble)",
         },
         {
-          "<leader>cs",
+          "<leader>N",
           "<cmd>Trouble lsp_document_symbols toggle focus=false<cr>",
             desc = "Symbols (Trouble)",
         },

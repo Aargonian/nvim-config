@@ -55,7 +55,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
         },
         opts = {
-            uesrLanguages = {
+            userLanguages = {
                 rust = "html",
             },
             inlay_hints = {
@@ -90,7 +90,7 @@ return {
                 init_options = {
                     preferences = {
                         includeInlayParameterNameHints = 'all',
-                        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                         includeInlayFunctionParameterTypeHints = true,
                         includeInlayVariableTypeHints = true,
                         includeInlayPropertyDeclarationTypeHints = true,

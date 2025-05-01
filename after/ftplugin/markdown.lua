@@ -17,7 +17,7 @@ opt.number = true
 opt.relativenumber = false
 
 -- Automatic Line Breaking at a Certain Length
-opt.textwidth = 120
+opt.textwidth = 80
 opt.colorcolumn = "+1"
 
 -- Auto-Indentation

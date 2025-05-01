@@ -19,3 +19,19 @@ map('n', '<C-Down>', ':resize +3<CR>', {silent = true})
 
 -- Disable q: for command history - I rarely use it purposefully and mostly by accident when quitting
 map('n', 'q:', '<Nop>', { noremap = true, silent = true })
+
+-- Remap folding to be more sane
+--
+-- Map 'f' to toggle the fold under cursor
+vim.keymap.set('n', 'f', 'za', { noremap = true })
+
+-- Map 'Shift+f' (capital F) to toggle all folds open/closed
+vim.keymap.set('n', 'F', function()
+    if vim.w.folds_open then
+        vim.opt_local.foldlevel = 0
+        vim.w.folds_open = false
+    else
+        vim.opt_local.foldlevel = 99
+        vim.w.folds_open = true
+    end
+end, { noremap = true })
