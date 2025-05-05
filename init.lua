@@ -38,4 +38,4 @@ require("lazy").setup('plugins', {
 vim.cmd 'colorscheme monokai-pro-classic'
 
 -- Enable LSP Debugging
-vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("info")
