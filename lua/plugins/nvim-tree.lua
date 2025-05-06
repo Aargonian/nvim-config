@@ -16,9 +16,21 @@ return {
                     ".git/"
                 }
             },
+
             view = {
-                preserve_window_proportions = true
+                preserve_window_proportions = true,
+                float = {
+                    enable = true,
+                    open_win_config = {
+                        relative = "editor",
+                        width = 60,
+                        height = 20,
+                        row = (vim.api.nvim_list_uis()[1].height - 20) * 0.4,
+                        col = (vim.api.nvim_list_uis()[1].width - 60) * 0.5,
+                    },
+                }
             },
+
             disable_netrw = true,
             hijack_netrw = true,
             update_cwd = true,
