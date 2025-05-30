@@ -20,7 +20,7 @@ return {
             view = {
                 preserve_window_proportions = true,
                 float = {
-                    enable = true,
+                    enable = false,
                     open_win_config = {
                         relative = "editor",
                         width = 60,
