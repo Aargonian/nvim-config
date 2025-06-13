@@ -8,52 +8,72 @@ return {
         -- [ Config Options and Setup for nvim-tree ]
         local map = vim.api.nvim_set_keymap
         local g = vim.g
+        local WIDTH_RATIO = 0.5
+        local HEIGHT_RATIO = 0.8
 
         require('nvim-tree').setup{
+            disable_netrw = true,
+            hijack_netrw = true,
+            update_cwd = true,
+
             filters = {
                 custom = {
                     "node_modules",
-                    ".git/"
+                    "^.git$"
                 }
             },
 
             view = {
+                relativenumber = true,
                 preserve_window_proportions = true,
                 float = {
-                    enable = false,
-                    open_win_config = {
-                        relative = "editor",
-                        width = 60,
-                        height = 20,
-                        row = (vim.api.nvim_list_uis()[1].height - 20) * 0.4,
-                        col = (vim.api.nvim_list_uis()[1].width - 60) * 0.5,
-                    },
+                    enable = true,
+                    open_win_config = function()
+                        local screen_w = vim.opt.columns:get()
+                        local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+                        local window_w = screen_w * WIDTH_RATIO
+                        local window_h = screen_h * HEIGHT_RATIO
+                        local window_w_int = math.floor(window_w)
+                        local window_h_int = math.floor(window_h)
+                        local center_x = (screen_w - window_w) / 2
+                        local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                                       - vim.opt.cmdheight:get()
+
+                        return {
+                            border = "rounded",
+                            relative = "editor",
+                            row = center_y,
+                            col = center_x,
+                            width = window_w_int,
+                            height = window_h_int,
+                        }
+                    end,
                 }
             },
 
-            disable_netrw = true,
-            hijack_netrw = true,
-            update_cwd = true,
             hijack_directories = {
                 enable = true,
                 auto_open = true
             },
+
             update_focused_file = {
                 enable = true,
                 update_cwd = false,
                 ignore_list = {}
             },
+
             git = {
                 enable = true,
                 ignore = false,
                 timeout = 500
             },
+
             renderer = {
                 highlight_git = true
             }
         }
 
-        map('n', '<Leader>n', ':NvimTreeToggle<CR>', { silent = true })
+        map('n', '<Leader>e', ':NvimTreeToggle<CR>', { silent = true })
 
         -- Disable netrw for nvim-tree
         g.loaded_netrw = 1
