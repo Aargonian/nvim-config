@@ -6,11 +6,6 @@
 vim.g.mapleader = ','
 vim.g.localleader = '\\'
 
--- IMPORTS
--- require('keys')         -- Global Keymaps
--- require('vars')         -- Variables
--- require('nvim_options') -- Global Neovim Options
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -32,6 +27,11 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
   checker = { enabled = false },
 })
+
+-- IMPORTS
+require('keys')         -- Global Keymaps
+require('vars')         -- Variables
+require('nvim_options') -- Global Neovim Options
 
 -- Colorscheme
 vim.cmd[[colorscheme gruvbox]]
