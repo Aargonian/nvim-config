@@ -2,41 +2,36 @@
 -- [[ SPEED - Significantly speeds up plugin loading ]]
 --vim.loader.enable()
 
--- Colorscheme baby!
--- require('colorscheme')
-
 -- LEADER
 vim.g.mapleader = ','
 vim.g.localleader = '\\'
 
 -- IMPORTS
-require('vars')         -- Variables
-require('nvim_options') -- Global Neovim Options
-require('keys')         -- Global Keymaps
+-- require('keys')         -- Global Keymaps
+-- require('vars')         -- Variables
+-- require('nvim_options') -- Global Neovim Options
 
--- Setup Lazy and pull in plugins
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        "--depth=1",
-        lazypath,
-    })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup('plugins', {
-    checker = {
-        enabled = false
-    },
+-- Setup lazy.nvim
+require("lazy").setup("plugins", {
+  checker = { enabled = false },
 })
 
--- Set default colorscheme
-vim.cmd 'colorscheme monokai-pro-classic'
-
--- Enable LSP Debugging
-vim.lsp.set_log_level("info")
+-- Colorscheme
+vim.cmd[[colorscheme gruvbox]]
