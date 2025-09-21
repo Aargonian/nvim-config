@@ -138,9 +138,9 @@ return {
             require('lspconfig').html.setup({ capabilities = capabilities, })
 
             -- Setup Omnisharp
-            require('lspconfig').omnisharp.setup {
-                capabilities = capabilities
-            }
+            -- require('lspconfig').omnisharp.setup {
+            --     capabilities = capabilities
+            -- }
         end
     }
 }
