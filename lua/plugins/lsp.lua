@@ -114,9 +114,6 @@ return {
                 filetypes = { 'bash', 'sh', 'zsh' }
             })
 
-            -- Setup Python
-            servers.pylsp.setup({})
-
             -- Setup Lua
             servers.lua_ls.setup({
                 settings = {
