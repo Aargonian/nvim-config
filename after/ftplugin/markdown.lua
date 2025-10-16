@@ -1,9 +1,11 @@
 local opt = vim.opt_local
 
 -- Soft Wrapping
-opt.wrap = false
-opt.linebreak = true
-opt.breakindent = true
+opt.wrap = true                 -- Use visual line wrapping for markdown
+opt.linebreak = true            -- Wrap only at word boundaries
+opt.breakindent = true          -- Keep indent on wrapped lines
+opt.showbreak   = '↳ '          -- prefix for every wrapped screen‑line
+opt.whichwrap:append('<,>,h,l') -- let h/l cross wrap boundaries
 
 -- Syntax Highlighting
 opt.syntax = "on"
@@ -35,3 +37,12 @@ opt.concealcursor = "n"
 
 -- Set spell checking for Markdown files
 vim.opt.spell = true
+
+-- Remap j/k for gj/gk due to visual line wrapping
+vim.keymap.set({'n', 'v'}, 'j', 'gj', { buffer = true, remap = false, silent = true, desc = 'down (screen line)' })
+vim.keymap.set({'n', 'v'}, 'k', 'gk', { buffer = true, remap = false, silent = true, desc = 'up   (screen line)' })
+
+-- home/end remaps for screen lines
+vim.keymap.set({'n'}, '0', 'g0', { buffer = true, remap = false, silent = true, desc = 'startend        (screen line)' })
+vim.keymap.set({'n'}, '^', 'g^', { buffer = true, remap = false, silent = true, desc = 'first non-blank (screen line)' })
+vim.keymap.set({'n'}, '$', 'g$', { buffer = true, remap = false, silent = true, desc = 'end             (screen line)' })
