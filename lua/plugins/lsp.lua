@@ -52,6 +52,15 @@ local servers = {
             },
         },
     },
+    rust_analyzer = {
+        settings = {
+            ['rust-analyzer'] = {
+                check = {
+                    command = "clippy",
+                }
+            }
+        }
+    },
     tailwindcss = {},
     -- nil_ls = {},
     bashls = {
