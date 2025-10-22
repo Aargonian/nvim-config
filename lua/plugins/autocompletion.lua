@@ -15,7 +15,6 @@ return {
     },
     config = function()
         local opt = vim.opt
-        local cmd = vim.api.nvim_command
 
         opt.completeopt = {'menuone', 'noselect', 'noinsert'}
         opt.shortmess = opt.shortmess + { c = true }
@@ -41,9 +40,9 @@ return {
 
             -- Enable LSP snippets
             snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end,
+                -- expand = function(args)
+                --     luasnip.lsp_expand(args.body)
+                -- end,
                 -- expand = function(args)
                 --     vim.fn["vsnip#anonymous"](args.body)
                 -- end,

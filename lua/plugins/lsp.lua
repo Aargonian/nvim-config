@@ -12,6 +12,11 @@ local on_attach = function(lsp_client, buffer_number)
         }
     })
 
+    -- Enable inlay hints
+    if lsp_client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true)
+    end
+
     -- Setup Keybinds
     local keymap_opts = { buffer = buffer_number }
     vim.keymap.set('n', 'g[', vim.diagnostic.goto_prev, keymap_opts)
@@ -27,6 +32,11 @@ local on_attach = function(lsp_client, buffer_number)
     vim.keymap.set('n', 'gW', vim.lsp.buf.workspace_symbol, keymap_opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, keymap_opts)
     --vim.keymap.set('n', '<Leader>a', rt.code_action_group.code_action_group, { buffer = bufnr })
+    --
+    vim.keymap.set('n', 'g-', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end, keymap_opts)
+
     vim.keymap.set('n', 'gf', function()
         vim.lsp.buf.format { async = true }
     end, keymap_opts)
@@ -57,6 +67,16 @@ local servers = {
             ['rust-analyzer'] = {
                 check = {
                     command = "clippy",
+                },
+
+                completion = {
+                    autoimport = {
+                        enable = false
+                    },
+
+                    snippets = {
+                        custom = nil
+                    }
                 }
             }
         }
@@ -110,7 +130,7 @@ return {
         -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
+        capabilities.textDocument.completion.completionItem.snippetSupport = false
 
         require("mason-lspconfig").setup {
             ensure_installed = vim.tbl_keys(servers),
